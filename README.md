@@ -116,8 +116,14 @@ harmless, a missed emergency is not.
 | canned (router short-circuit) | 5.0 % |
 | latency p50 / p95 (ms, CPU, under load) | 1,233 / 1,717 |
 
-The 5 % canned are MedQuAD questions like "Do you have information about X?" that the router read as
-chit-chat; the fix is another exemplar, and I left it in the numbers rather than tune on the test.
+The 5 % canned are a real router weakness, not noise: nine of the ten are "What is (are) <rare disease>?"
+questions (Adenoameloblastoma, Situs inversus, Proud syndrome, …) whose nearest medical exemplar scores
+0.13–0.28 — the sentence embedder does not know the disease name, so the question looks like nothing —
+and they fall below the 0.28 floor into out_of_scope. The tenth, "What to do for urinary incontinence
+in children?", tipped into personal_dosing. The right fix is a lexical fallback (if the query contains a
+term that exists in the corpus vocabulary, it is in scope) rather than a lower floor, which would let
+genuine off-topic questions through. I left the numbers as measured instead of patching the router
+after seeing the test sample.
 Zero abstentions on in-distribution questions is expected — every question has a gold page in the
 corpus — and says nothing about out-of-distribution behaviour; the routing set covers that side.
 Latency is dominated by the cross-encoder on 20 candidates; the router-only paths return in under 50 ms.
@@ -148,8 +154,9 @@ the output guard (the count of dropped ungrounded sentences is the hallucination
 
 ## What I would do next
 
-- Replace the exemplar-centroid router with a small fine-tuned classifier once there is real traffic to
-  label; the centroid approach is a cold-start choice.
+- Add a corpus-vocabulary lexical fallback to the router so rare disease names are recognised as in-scope
+  (see the 5 % canned cases above), then replace the exemplar router with a small fine-tuned classifier
+  once there is real traffic to label.
 - Swap the sentence-cosine groundedness check for an NLI model (entailment vs. contradiction) — cosine
   cannot tell "X causes Y" from "X does not cause Y".
 - Add a query-rewrite step for multi-part questions, and evaluate on LiveQA-Med 2017 (the real
