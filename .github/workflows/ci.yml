@@ -1,0 +1,13 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11", cache: pip}
+      - run: pip install -e ".[dev]"
+      # API tests self-skip when the index has not been built; the guardrail/router/budget suite runs fully.
+      - run: python -m pytest -q
+        env: {KMP_DUPLICATE_LIB_OK: "TRUE", HF_HUB_DISABLE_SYMLINKS_WARNING: "1"}

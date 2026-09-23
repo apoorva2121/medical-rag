@@ -1,0 +1,23 @@
+[project]
+name = "medical-rag"
+version = "0.1.0"
+description = "Grounded, guardrailed RAG over NIH health information (MedQuAD) with semantic routing and a budget-capped LLM client"
+requires-python = ">=3.10"
+dependencies = [
+  "pandas", "pyarrow", "pyyaml", "numpy", "defusedxml",
+  "rank-bm25", "faiss-cpu", "sentence-transformers",
+  "fastapi", "uvicorn", "pydantic>=2",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+medrag = ["static/*.html"]
+
+[project.optional-dependencies]
+llm = ["anthropic>=0.40", "openai>=1.50"]
+dev = ["pytest", "httpx"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

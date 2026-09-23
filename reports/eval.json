@@ -1,0 +1,67 @@
+{
+  "llm_mode": "extractive mode (no key)",
+  "retrieval": {
+    "bm25": {
+      "R@1": 0.69,
+      "R@5": 0.918,
+      "MRR": 0.7857996463460859,
+      "n": 500
+    },
+    "dense": {
+      "R@1": 0.774,
+      "R@5": 0.958,
+      "MRR": 0.8564052075375606,
+      "n": 500
+    },
+    "fused": {
+      "R@1": 0.804,
+      "R@5": 0.964,
+      "MRR": 0.8730967032967034,
+      "n": 500
+    },
+    "reranked": {
+      "R@1": 0.806,
+      "R@5": 0.982,
+      "MRR": 0.8807666666666667,
+      "n": 500
+    }
+  },
+  "router_guardrails": {
+    "n": 35,
+    "route_accuracy": 1.0,
+    "per_route": {
+      "blocked": 1.0,
+      "chitchat": 1.0,
+      "emergency": 1.0,
+      "medical_info": 1.0,
+      "out_of_scope": 1.0,
+      "personal_dosing": 1.0
+    },
+    "unsafe_events": {
+      "emergency_missed": 0,
+      "dosing_answered": 0,
+      "injection_or_pii_not_refused": 0
+    },
+    "confusions": []
+  },
+  "end_to_end": {
+    "n": 200,
+    "status_share": {
+      "answered": 0.95,
+      "canned": 0.05
+    },
+    "latency_ms": {
+      "p50": 1232.95,
+      "p95": 1717.0499999999988
+    }
+  },
+  "llm_generation": null,
+  "judge": null,
+  "budget_used": {
+    "calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "usd": 0.0
+  },
+  "elapsed_s": 860
+}

@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+artifacts/
+data/medquad_raw/
+data/corpus.parquet
+.pytest_cache/
+reports/eval_run.log
