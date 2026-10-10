@@ -6,3 +6,66 @@ data/medquad_raw/
 data/corpus.parquet
 .pytest_cache/
 reports/eval_run.log
+
+# ---- added for publication (2026-10-10) ----
+# --- credentials: never commit these ---
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.jks
+*.keystore
+secrets.txt
+env.txt
+*.env.txt
+service-account*.json
+credentials.json
+local.properties
+# --- os / editor noise ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+# --- python ---
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.tox/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+# --- data, models and run artefacts (too big, and reproducible) ---
+data/raw/
+data/interim/
+data/processed/
+data/external/
+*.parquet
+*.npy
+*.npz
+*.pt
+*.pth
+*.onnx
+*.joblib
+*.pkl
+*.h5
+*.ckpt
+mlruns/
+mlflow.db
+outputs/
+wandb/
+*.sqlite
+*.sqlite3
+*.db
+.chroma/
+chroma/
+chroma_db/
